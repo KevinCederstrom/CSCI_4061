@@ -1,0 +1,24 @@
+#!/bin/csh
+
+set input=$argv[1]
+set output=$argv[2]
+#set pattern1=$argv[3]
+#set pattern2=$argv[4]
+#set pattern3=$argv[5]
+##Check to see if output directory exists, if not create one
+if (! -d $output) then
+	mkdir output
+endif
+if (! -d $output/thumbs) then
+	mkdir $output/thumbs
+endif
+find $input -name "*.png" -exec cp {} $output \;
+mogrify -format jpg $output/*.png
+rm -f $output/*.png 
+foreach i ($output/*.jpg)
+ext=${i*.}
+name=$(basename "$i" ".ext" | tr "a-z" "A-Z").$ext
+cp $i $name
+end
+#echo $input
+#echo $output

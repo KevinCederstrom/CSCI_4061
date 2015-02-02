@@ -1,0 +1,4 @@
+#!/bin/csh
+find
+echo find $1
+date
